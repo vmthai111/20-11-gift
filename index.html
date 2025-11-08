@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quà 20/11 - Tặng Thầy Cô</title>
+  <style>
+    :root{--bg:#fff8f0;--card:#fff;--accent:#c23b6b;--muted:#6b6b6b}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,var(--bg),#fff);display:flex;align-items:center;justify-content:center;height:100vh}
+    .wrap{width:920px;max-width:95%;display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center}
+    .card{background:var(--card);border-radius:16px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    h1{margin:0 0 8px 0;font-size:28px;color:var(--accent)}
+    p.lead{margin:0 0 16px 0;color:var(--muted)}
+    .message{font-size:18px;line-height:1.5;color:#333;padding:14px;border-radius:10px;background:linear-gradient(180deg,#fff,#fff);min-height:140px}
+    .controls{display:flex;gap:8px;margin-top:12px}
+    input[type=text]{flex:1;padding:10px;border-radius:8px;border:1px solid #eee}
+    button{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+    .right{display:flex;flex-direction:column;gap:16px}
+    .preview{position:relative;min-height:320px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#fff9f6,#fff);display:flex;align-items:center;justify-content:center}
+    .preview .paper{padding:24px;text-align:center}
+    .teacher{font-weight:700;font-size:22px;color:var(--accent);margin-bottom:6px}
+    .card-msg{font-size:16px;color:#333}
+    .confetti{pointer-events:none;position:absolute;inset:0;overflow:hidden}
+    .confetti i{position:absolute;width:10px;height:14px;opacity:0;transform-origin:center;animation:fall 3.5s linear infinite}
+    @keyframes fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+    footer{font-size:12px;color:#777;margin-top:12px}
+    .actions{display:flex;gap:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Quà 20/11 — Tặng Thầy/Cô</h1>
+      <p class="lead">Dán mã này vào VSCode (file .html) và mở bằng trình duyệt hoặc Live Server.
+      Chỉnh tên Thầy/Cô và lời chúc, bấm <strong>Gửi</strong> để xem ngay.</p>
+
+      <label for="teacher">Tên Thầy/Cô</label>
+      <div class="controls">
+        <input id="teacher" type="text" placeholder="Nhập tên (ví dụ: Thầy Nam)" value="Thầy/Cô thân mến">
+        <button id="apply">Gửi</button>
+        <button id="download">Tải ảnh</button>
+      </div>
+
+      <label for="msg" style="margin-top:12px;display:block">Lời chúc</label>
+      <textarea id="msg" class="message" placeholder="Viết lời chúc ấm áp...">Chúc Thầy/Cô 20/11 luôn mạnh khỏe, nhiều niềm vui và mãi là ngọn lửa dẫn đường cho chúng em.</textarea>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div class="actions">
+          <button id="playMusic">Phát nhạc</button>
+          <button id="stopMusic">Dừng nhạc</button>
+        </div>
+        <footer>Nhấn <em>Gửi</em> để cập nhật thẻ. Nhấn <em>Tải ảnh</em> để lưu lại.</footer>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="preview card">
+        <div class="confetti" id="confetti"></div>
+        <div class="paper" id="cardPreview">
+          <div style="font-size:14px;color:#666;margin-bottom:6px">Ngày 20/11</div>
+          <div class="teacher" id="previewTeacher">Thầy/Cô thân mến</div>
+          <div class="card-msg" id="previewMsg">Chúc Thầy/Cô 20/11 luôn mạnh khỏe, nhiều niềm vui và mãi là ngọn lửa dẫn đường cho chúng em.</div>
+        </div>
+      </div>
+
+      <div class="card" style="text-align:center">
+        <div>Muốn trang trí thêm? Thay font, màu, hoặc thêm hình nền trong mã CSS.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Áp dụng nội dung lên preview
+    const teacherInput = document.getElementById('teacher');
+    const msgInput = document.getElementById('msg');
+    const applyBtn = document.getElementById('apply');
+    const previewTeacher = document.getElementById('previewTeacher');
+    const previewMsg = document.getElementById('previewMsg');
+    const confettiEl = document.getElementById('confetti');
+    const downloadBtn = document.getElementById('download');
+
+    function apply() {
+      previewTeacher.textContent = teacherInput.value || 'Thầy/Cô thân mến';
+      previewMsg.textContent = msgInput.value || '';
+      burstConfetti();
+    }
+
+    applyBtn.addEventListener('click', apply);
+
+    // Tạo confetti đơn giản
+    function burstConfetti(){
+      confettiEl.innerHTML = '';
+      const colors = ['#c23b6b','#f6a01b','#7bc043','#4aa3df','#8e44ad'];
+      for(let i=0;i<40;i++){
+        const el = document.createElement('i');
+        el.style.left = Math.random()*100 + '%';
+        el.style.background = colors[Math.floor(Math.random()*colors.length)];
+        el.style.transform = 'translateY(-10vh) rotate('+ (Math.random()*360) +'deg)';
+        el.style.animationDelay = (Math.random()*0.6) + 's';
+        el.style.opacity = 1;
+        el.style.width = (6+Math.random()*12)+'px';
+        el.style.height = (8+Math.random()*14)+'px';
+        confettiEl.appendChild(el);
+      }
+      // dừng sau 4s
+      setTimeout(()=> confettiEl.innerHTML = '', 4000);
+    }
+
+    // Tải ảnh: chuyển thẻ preview thành canvas rồi tải
+    downloadBtn.addEventListener('click', async ()=>{
+      const node = document.getElementById('cardPreview');
+      // Sử dụng html2canvas-like minimal: draw simple text onto canvas
+      const w = 700, h = 420;
+      const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      // background
+      ctx.fillStyle = '#fff7f3'; ctx.fillRect(0,0,w,h);
+      // title
+      ctx.fillStyle = '#999'; ctx.font = '18px sans-serif'; ctx.fillText('Ngày 20/11', 32, 48);
+      // teacher
+      ctx.fillStyle = '#c23b6b'; ctx.font = '28px sans-serif'; ctx.fillText(previewTeacher.textContent, 32, 110);
+      // message (wrap)
+      ctx.fillStyle = '#222'; ctx.font = '18px sans-serif';
+      const words = previewMsg.textContent.split(' ');
+      let line = '', y = 150;
+      for(let n=0;n<words.length;n++){
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if(metrics.width > w - 64){ ctx.fillText(line, 32, y); line = words[n] + ' '; y += 26; }
+        else { line = testLine; }
+      }
+      ctx.fillText(line, 32, y);
+      // download
+      const a = document.createElement('a'); a.href = canvas.toDataURL('image/png'); a.download = 'qua-20-11.png'; a.click();
+    });
+
+    // Small melody using WebAudio API
+    let audioCtx, osc;
+    document.getElementById('playMusic').addEventListener('click', ()=>{
+      if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine'; osc.frequency.value = 440;
+      gain.gain.value = 0.0001;
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start();
+      // simple arpeggio
+      const notes = [440, 523.25, 659.25, 880];
+      notes.forEach((f,i)=>{
+        setTimeout(()=>{ osc.frequency.setValueAtTime(f, audioCtx.currentTime); gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.02); }, i*300);
+        setTimeout(()=>{ gain.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.28 + i*0.3); }, i*300);
+      });
+      // stop after loop
+      setTimeout(()=>{ if(osc) osc.stop(); osc=null; }, notes.length*350+200);
+    });
+    document.getElementById('stopMusic').addEventListener('click', ()=>{ if(osc){ try{osc.stop()}catch(e){} osc=null;} });
+
+    // Áp dụng lần đầu
+    apply();
+  </script>
+</body>
+</html>
