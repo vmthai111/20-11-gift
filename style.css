@@ -3,12 +3,20 @@ body {
     font-family: 'Arial', sans-serif;
     text-align: center;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+    padding-top: 50px;
 }
 
 h1 {
     color: #e91e63;
-    font-size: 2.5em;
-    margin-top: 50px;
+    font-size: 3em;
+    margin: 20px 0;
 }
 
 p {
