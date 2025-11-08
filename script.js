@@ -1,12 +1,9 @@
-document.getElementById('show-gift').addEventListener('click', function() {
-    const teacherName = document.getElementById('teacher-name').value.trim();
-    const message = document.getElementById('message');
+const flowers = document.querySelectorAll('.flower');
 
-    if(teacherName === '') {
-        alert('Vui lòng nhập tên thầy/cô!');
-        return;
-    }
-
-    message.textContent = `Chúc ${teacherName} luôn mạnh khỏe, hạnh phúc và nhiều niềm vui trong công việc dạy học! 🎉`;
-    message.classList.remove('hidden');
+flowers.forEach(flower => {
+    const left = Math.random() * window.innerWidth;
+    const duration = 5 + Math.random() * 5;
+    flower.style.left = left + 'px';
+    flower.style.animationDuration = duration + 's';
+    flower.style.fontSize = 20 + Math.random() * 30 + 'px';
 });
