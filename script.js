@@ -84,12 +84,7 @@ const galaxyParameters = {
   outsideColor: new THREE.Color(0x48b8b8),
 };
 
-const defaultHeartImages = [];
-
-const heartImages = [
-  ...(window.dataCCD?.data?.heartImages || []),
-  ...defaultHeartImages,
-];
+const heartImages = [];
 
 const textureLoader = new THREE.TextureLoader();
 const numGroups = heartImages.length;
