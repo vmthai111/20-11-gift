@@ -84,6 +84,8 @@ const galaxyParameters = {
   outsideColor: new THREE.Color(0x48b8b8),
 };
 
+const heartImages = [];
+
 const textureLoader = new THREE.TextureLoader();
 const numGroups = heartImages.length;
 
@@ -311,13 +313,6 @@ for (let group = 0; group < numGroups; group++) {
   cz /= posAttr.count;
   groupGeometryNear.translate(-cx, -cy, -cz);
   groupGeometryFar.translate(-cx, -cy, -cz);
-
-  // Tải hình ảnh và tạo vật thể
-  const img = new window.Image();
-  img.crossOrigin = "Anonymous";
-  img.src = heartImages[group];
-  img.onload = () => {
-    const neonTexture = createNeonTexture(img, 256);
 
     // Material khi ở gần
     const materialNear = new THREE.PointsMaterial({
