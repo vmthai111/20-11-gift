@@ -84,10 +84,6 @@ const galaxyParameters = {
   outsideColor: new THREE.Color(0x48b8b8),
 };
 
-const heartImages = [];
-
-const textureLoader = new THREE.TextureLoader();
-const numGroups = heartImages.length;
 
 // --- LOGIC DÙNG NỘI SUY ---
 
@@ -243,7 +239,6 @@ function createNeonTexture(image, size) {
   ctx.arcTo(offsetX, offsetY, offsetX + cornerRadius, offsetY, cornerRadius);
   ctx.closePath();
   ctx.clip();
-  ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
   ctx.restore();
   return new THREE.CanvasTexture(canvas);
 }
